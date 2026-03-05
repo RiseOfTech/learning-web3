@@ -1,24 +1,64 @@
-# Compiled class file
+# ──────────────────────────────────────────────
+# Compiled files / binaries / logs (Java + общие)
+# ──────────────────────────────────────────────
 *.class
+*.jar          # ← но см. ниже !gradle-wrapper.jar
+*.war
+*.ear
+*.nar
 
-# Log file
 *.log
 
-# BlueJ files
-*.ctxt
+# Crash logs
+hs_err_pid*
+replay_pid*
 
-# Mobile Tools for Java (J2ME)
+# BlueJ и старые инструменты
+*.ctxt
 .mtj.tmp/
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
+# Архивы (если не нужны в git)
 *.zip
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# ──────────────────────────────────────────────
+# Gradle-specific
+# ──────────────────────────────────────────────
+.gradle                  # Gradle кэш
+build/                   # Результаты сборки (в корне и в подмодулях)
+!gradle/wrapper/gradle-wrapper.jar     # ← НЕ игнорировать wrapper!
+!gradle/wrapper/gradle-wrapper.properties
+!gradlew
+!gradlew.bat
+
+# Локальные настройки Gradle (часто пользовательские)
+org.gradle.daemon.*
+org.gradle.jvmargs.*
+gradle-app.setting       # GUI настройки
+
+# Редкий кэш
+.gradletasknamecache
+
+# ──────────────────────────────────────────────
+# IntelliJ IDEA / JetBrains (почти всегда полностью игнорировать)
+# ──────────────────────────────────────────────
+.idea/                   # Вся папка — пользовательские настройки + генерируемые файлы
+*.iml                    # Модульные файлы (в Gradle генерируются автоматически)
+*.ipr
+*.iws
+
+# Если хочешь делиться чем-то конкретным (редко), можно раскомментировать:
+# !.idea/codeStyles/
+# !.idea/inspectionProfiles/
+# !.idea/runConfigurations/   ← только если команда использует одни и те же run-конфиги
+
+out/                     # Альтернативная папка вывода (иногда используется)
+
+# ──────────────────────────────────────────────
+# macOS / Windows / общий мусор
+# ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*.lnk                    # Windows shortcuts
