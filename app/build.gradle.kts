@@ -3,7 +3,7 @@ plugins {
     id("org.springframework.boot")
 }
 
-val mainClassName = "org.example.App"
+val mainClassName = "com.learningweb3.AppApplication"
 application {
     mainClass.set(mainClassName)
 }

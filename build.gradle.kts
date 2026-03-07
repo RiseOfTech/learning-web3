@@ -4,19 +4,14 @@ plugins {
     id("io.spring.dependency-management")
 }
 
-allprojects {
-    group = "com.example"
-    version = "0.0.1-SNAPSHOT"
-
-    repositories {
-        mavenCentral()
-    }
+tasks.named<Wrapper>("wrapper") {
+    distributionType = Wrapper.DistributionType.ALL
 }
 
 subprojects {
+    apply(plugin = "java-library")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "java-library")
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
@@ -29,10 +24,11 @@ subprojects {
             sourceCompatibility = javaVersion
         }
 
-        withType<JavaCompile> {
+        withType<JavaCompile>().configureEach {
             options.encoding = "UTF-8"
         }
     }
+
     dependencyManagement {
         val springBootVersion: String by project
         val web3jVersion: String by project
@@ -51,13 +47,5 @@ subprojects {
             dependency("org.mockito:mockito-core:$mockitoVersion")
             dependency("org.mockito:mockito-junit-jupiter:$mockitoVersion")
         }
-    }
-
-    tasks.withType<JavaCompile> {
-        options.encoding = "UTF-8"
-    }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
     }
 }

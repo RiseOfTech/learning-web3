@@ -12,15 +12,20 @@ modules.forEach { module ->
 }
 
 pluginManagement {
-    val springBootVersion: String by settings
-    val springDependencyManagementVersion: String by settings
-
     plugins {
+        val springBootVersion: String by settings
+        val springDependencyManagementVersion: String by settings
         id("org.springframework.boot") version springBootVersion
         id("io.spring.dependency-management") version springDependencyManagementVersion
     }
     repositories {
         mavenCentral()
         gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
     }
 }
