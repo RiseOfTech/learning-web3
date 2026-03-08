@@ -36,7 +36,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class BlockMonitorServiceImpl implements BlockMonitorService {
+public class DefaultBlockMonitorService implements BlockMonitorService {
 
     private final EthereumClient      ethereumClient;
     private final EthereumProperties  props;
@@ -47,12 +47,10 @@ public class BlockMonitorServiceImpl implements BlockMonitorService {
      */
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-    // ── Lifecycle ─────────────────────────────────────────────────────────
-
     @Override
     @PostConstruct
     public void startMonitoring() {
-        log.info("Starting on-chain event monitoring …");
+        log.info("Starting on-chain event monitoring...");
         subscribeToBlocks();
         subscribeToErc20Transfers();
     }
@@ -64,8 +62,6 @@ public class BlockMonitorServiceImpl implements BlockMonitorService {
                 disposables.size());
         disposables.dispose();
     }
-
-    // ── Private subscription methods ──────────────────────────────────────
 
     /**
      * Subscribes to every new Ethereum block and logs summary information.
@@ -154,8 +150,6 @@ public class BlockMonitorServiceImpl implements BlockMonitorService {
             log.warn("[ERC20] Failed to decode Transfer event: {}", ex.getMessage());
         }
     }
-
-    // ── ABI decoding helpers ──────────────────────────────────────────────
 
     /**
      * Extracts an Ethereum address (20 bytes) from a 32-byte ABI-encoded topic.

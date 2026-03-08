@@ -6,14 +6,9 @@ import java.math.BigInteger;
 /**
  * Application-wide constants for Ethereum calculations.
  *
- * <p>Having a single constants class avoids magic numbers scattered across the code
- * and makes unit conversion immediately obvious to readers unfamiliar with Web3.
+ * <p>Having a single constants class avoids magic numbers scattered across the code.
  */
 public final class EthereumConstants {
-
-    private EthereumConstants() {
-        // utility class — do not instantiate
-    }
 
     /**
      * 1 Ether expressed in Wei.
@@ -57,8 +52,6 @@ public final class EthereumConstants {
      * (256-bit slots = 32 bytes = 64 hex characters, with the address in the last 40.)
      */
     public static final int ABI_WORD_HEX_LENGTH = 64;
-
-    // ── Gas defaults (informational — actual values come from DefaultGasProvider) ─
 
     /** Default gas limit for a plain ETH transfer.  21,000 is the minimum. */
     public static final BigInteger GAS_LIMIT_ETH_TRANSFER = BigInteger.valueOf(21_000);

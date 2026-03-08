@@ -1,17 +1,7 @@
-## ──────────────────────────────────────────────────────────
-##  learning-web3 — application configuration
-##
-##  Sensitive values (RPC URL, private key) are NEVER stored
-##  here. They are injected via environment variables only.
-##  The ${VAR:} syntax tells Spring to fail fast if a required
-##  variable is absent (no fallback default is intentional).
-## ──────────────────────────────────────────────────────────
-
 spring:
   application:
     name: learning-web3
 
-# ── Web3j / Ethereum ──────────────────────────────────────
 ethereum:
   # Ethereum JSON-RPC endpoint (Infura, Alchemy, local node …)
   # Export: export WEB3J_RPC_URL=https://mainnet.infura.io/v3/<KEY>
@@ -28,11 +18,15 @@ ethereum:
   tx-receipt-poll-attempts: 40
   tx-receipt-poll-interval-ms: 2000
 
-# ── Server ────────────────────────────────────────────────
 server:
   port: 8080
 
-# ── Logging ───────────────────────────────────────────────
+app:
+  base-url: "http://localhost:8080"
+  api-prefix: "/api/v1"
+  errors-path: "${app.api-prefix}/errors"
+  errors-url: "${app.base-url}${app.errors-path}"
+
 logging:
   level:
     com.learningweb3: DEBUG

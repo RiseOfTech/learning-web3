@@ -12,21 +12,10 @@ import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 
-/**
- * REST controller implementation — thin delegation layer only.
- *
- * <p>Controllers in a well-structured Spring application do nothing except:
- * <ol>
- *   <li>Receive the validated request.</li>
- *   <li>Call the service.</li>
- *   <li>Wrap the result in an HTTP response.</li>
- * </ol>
- * All business logic belongs in {@link EthereumService}.
- */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class EthereumControllerImpl implements EthereumController {
+public class DefaultEthereumController implements EthereumController {
 
     private final EthereumService ethereumService;
 

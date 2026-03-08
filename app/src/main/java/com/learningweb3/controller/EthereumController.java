@@ -12,10 +12,6 @@ import java.math.BigDecimal;
 /**
  * REST API contract for Ethereum operations.
  *
- * <p>Defining the controller as an interface keeps the implementation class
- * focused purely on delegation logic and makes the contract immediately readable
- * without scrolling through Spring annotations.
- *
  * <p>Endpoints:
  * <pre>
  *   GET  /balance/{address}   →  ETH balance as BigDecimal
@@ -30,7 +26,7 @@ public interface EthereumController {
      *
      * <p>Example:
      * <pre>
-     *   curl http://localhost:8080/api/v1/ethereum/balance/0xdAC17F958D2ee523a2206206994597C13D831ec7
+     *   curl http://localhost:8080/api/v1/ethereum/balance/0xAnyAddress
      * </pre>
      *
      * @param address 42-character Ethereum address (0x + 40 hex chars).

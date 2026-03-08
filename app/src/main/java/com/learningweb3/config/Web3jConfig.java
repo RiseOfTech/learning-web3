@@ -79,8 +79,6 @@ public class Web3jConfig {
         return new DefaultGasProvider();
     }
 
-    // ── helpers ───────────────────────────────────────────────────────────
-
     /** Masks an Infura/Alchemy API key in log output (everything after the last '/'). */
     private static String maskUrl(String url) {
         int lastSlash = url.lastIndexOf('/');

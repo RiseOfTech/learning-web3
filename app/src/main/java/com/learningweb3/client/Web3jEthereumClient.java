@@ -49,8 +49,6 @@ public class Web3jEthereumClient implements EthereumClient {
     private final Credentials        credentials;
     private final EthereumProperties props;
 
-    // ── Balance ───────────────────────────────────────────────────────────
-
     @Override
     public BigDecimal getBalance(String address) throws IOException {
         log.debug("Fetching ETH balance for address: {}", address);
@@ -71,8 +69,6 @@ public class Web3jEthereumClient implements EthereumClient {
         log.debug("Balance for {}: {} ETH", address, balanceEther);
         return balanceEther;
     }
-
-    // ── Transfer ──────────────────────────────────────────────────────────
 
     @Override
     public TransactionReceipt sendEther(String toAddress, BigDecimal amountEth)
@@ -115,8 +111,6 @@ public class Web3jEthereumClient implements EthereumClient {
         }
     }
 
-    // ── Block subscription ────────────────────────────────────────────────
-
     @Override
     public Flowable<EthBlock.Block> subscribeToNewBlocks(boolean fullTransactionObjects) {
         log.info("Subscribing to new blocks (fullTx={})", fullTransactionObjects);
@@ -128,8 +122,6 @@ public class Web3jEthereumClient implements EthereumClient {
         return web3j.blockFlowable(fullTransactionObjects)
                     .map(EthBlock::getBlock);
     }
-
-    // ── ERC-20 Transfer event subscription ───────────────────────────────
 
     @Override
     public Flowable<Log> subscribeToErc20Transfers(String contractAddress) {
@@ -152,8 +144,6 @@ public class Web3jEthereumClient implements EthereumClient {
 
         return web3j.ethLogFlowable(filter);
     }
-
-    // ── Utility ───────────────────────────────────────────────────────────
 
     @Override
     public BigInteger getChainId() throws IOException {

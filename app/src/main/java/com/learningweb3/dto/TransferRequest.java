@@ -10,10 +10,6 @@ import java.math.BigDecimal;
 /**
  * Immutable request body for the POST /transfer endpoint.
  *
- * <p>Java 16+ {@code record} types are a perfect fit for DTOs: they are immutable,
- * provide {@code equals}, {@code hashCode}, and {@code toString} for free, and
- * Spring's Jackson integration deserialises them without any extra configuration.
- *
  * <p>Validation annotations are evaluated by Spring's {@code @Valid} support before
  * the request reaches the service layer.
  *
