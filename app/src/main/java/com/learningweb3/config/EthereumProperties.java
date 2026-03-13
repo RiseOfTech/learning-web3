@@ -7,21 +7,13 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-/**
- * Strongly-typed binding of the {@code ethereum.*} section in {@code application.yml}.
- *
- * <p>Spring Boot reads environment variables automatically when the YAML value is
- * expressed as {@code ${ENV_VAR}}, so there is no explicit env-var reading code here —
- * the framework handles the injection.  If a required variable is absent the
- * application will fail to start with a clear message.
- */
 @Getter
 @Setter
 @Validated
 @ConfigurationProperties(prefix = "ethereum")
 public class EthereumProperties {
 
-    /** Ethereum JSON-RPC endpoint.  Injected from {@code WEB3J_RPC_URL}. */
+    /** Ethereum JSON-RPC endpoint. Injected from {@code WEB3J_RPC_URL}. */
     @NotBlank(message = "ethereum.rpc-url must not be blank — set WEB3J_RPC_URL")
     private String rpcUrl;
 

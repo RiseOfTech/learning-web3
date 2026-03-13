@@ -9,20 +9,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-/**
- * Low-level Ethereum client abstraction.
- *
- * <p>This interface isolates all Web3j calls from the rest of the application.
- * Keeping Web3j behind an interface allows:
- * <ul>
- *   <li>Easy mocking in unit tests (no live node required).</li>
- *   <li>Swapping Web3j for another client library without touching service code.</li>
- *   <li>Adding retry/circuit-breaker logic in a single place.</li>
- * </ul>
- *
- * <p>Methods throw checked {@link IOException} for RPC failures so callers
- * are forced to decide how to handle network errors explicitly.
- */
 public interface EthereumClient {
 
     /**

@@ -1,7 +1,10 @@
 package com.learningweb3.controller;
 
+import com.learningweb3.config.AppProperties;
 import com.learningweb3.exception.EthereumException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +25,7 @@ import java.util.stream.Collectors;
  * gives callers a machine-readable error body:
  * <pre>
  * {
- *   "type":     "https://learningweb3.dev/errors/ethereum-error",
+ *   "type":     "documentation of errors",
  *   "title":    "Ethereum Operation Failed",
  *   "status":   502,
  *   "detail":   "eth_getBalance failed: execution reverted",
@@ -32,11 +35,11 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
+@EnableConfigurationProperties(AppProperties.class)
 public class GlobalErrorHandler {
 
-    private static final String ERROR_TYPE_BASE = "https://learningweb3.dev/errors/";
-
-    // ── Domain errors ─────────────────────────────────────────────────────
+    private final AppProperties appProperties;
 
     /**
      * Maps {@link EthereumException} to HTTP 502 Bad Gateway.
@@ -50,14 +53,12 @@ public class GlobalErrorHandler {
 
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_GATEWAY, ex.getMessage());
-        problem.setType(URI.create(ERROR_TYPE_BASE + "ethereum-error"));
+        problem.setType((errorTypeUri("ethereum-error")));
         problem.setTitle("Ethereum Operation Failed");
         problem.setProperty("timestamp", Instant.now());
 
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(problem);
     }
-
-    // ── Validation errors ─────────────────────────────────────────────────
 
     /**
      * Maps {@code @Valid} / bean-validation failures to HTTP 400 Bad Request.
@@ -86,7 +87,7 @@ public class GlobalErrorHandler {
 
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_REQUEST, "One or more request fields are invalid");
-        problem.setType(URI.create(ERROR_TYPE_BASE + "validation-error"));
+        problem.setType(errorTypeUri("validation-error"));
         problem.setTitle("Validation Failed");
         problem.setProperty("violations", violations);
         problem.setProperty("timestamp", Instant.now());
@@ -94,18 +95,20 @@ public class GlobalErrorHandler {
         return ResponseEntity.badRequest().body(problem);
     }
 
-    // ── Catch-all ─────────────────────────────────────────────────────────
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> handleGenericException(Exception ex) {
         log.error("Unexpected error: {}", ex.getMessage(), ex);
 
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(
                 HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
-        problem.setType(URI.create(ERROR_TYPE_BASE + "internal-error"));
+        problem.setType(errorTypeUri("internal-error"));
         problem.setTitle("Internal Server Error");
         problem.setProperty("timestamp", Instant.now());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problem);
+    }
+
+    private URI errorTypeUri(String errorCode) {
+        return URI.create(appProperties.getErrorsUrl() + "/" + errorCode);
     }
 }

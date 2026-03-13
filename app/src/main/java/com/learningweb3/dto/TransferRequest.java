@@ -7,19 +7,6 @@ import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
 
-/**
- * Immutable request body for the POST /transfer endpoint.
- *
- * <p>Java 16+ {@code record} types are a perfect fit for DTOs: they are immutable,
- * provide {@code equals}, {@code hashCode}, and {@code toString} for free, and
- * Spring's Jackson integration deserialises them without any extra configuration.
- *
- * <p>Validation annotations are evaluated by Spring's {@code @Valid} support before
- * the request reaches the service layer.
- *
- * @param to     Recipient Ethereum address (must start with "0x" and be 42 chars total).
- * @param amount ETH amount to send (must be greater than zero).
- */
 public record TransferRequest(
 
         @NotBlank(message = "Recipient address must not be blank")
