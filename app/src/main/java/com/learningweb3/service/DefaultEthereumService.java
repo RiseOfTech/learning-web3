@@ -40,27 +40,17 @@ public class DefaultEthereumService implements EthereumService {
                    .onErrorMap(this::wrapIfNeeded);
     }
 
-    /**
-     * Converts a raw Web3j {@link TransactionReceipt} to our clean DTO.
-     * Null-safe defaults handle the rare case where the receipt is incomplete.
-     */
     private TransferResponse toTransferResponse(TransactionReceipt receipt) {
         return new TransferResponse(
                 receipt.getTransactionHash(),
                 receipt.getBlockNumber(),
                 receipt.getFrom(),
                 receipt.getTo(),
-                receipt.getStatus(),          // "0x1" = success, "0x0" = reverted
+                receipt.getStatus(), // "0x1" = success, "0x0" = reverted
                 receipt.getGasUsed()
         );
     }
 
-    /**
-     * Ensures all exceptions surfacing from the client layer are wrapped in
-     * {@link EthereumException} so the global error handler can process them
-     * uniformly.  If the exception is already an {@link EthereumException}
-     * it is returned unchanged.
-     */
     private Throwable wrapIfNeeded(Throwable ex) {
         if (ex instanceof EthereumException) {
             return ex;

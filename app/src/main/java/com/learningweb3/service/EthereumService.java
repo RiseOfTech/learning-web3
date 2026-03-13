@@ -6,19 +6,6 @@ import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 
-/**
- * Business-logic interface for Ethereum operations exposed to the REST layer.
- *
- * <p>The service layer is responsible for:
- * <ul>
- *   <li>Orchestrating calls to {@link com.learningweb3.client.EthereumClient}.</li>
- *   <li>Converting domain exceptions into appropriate application exceptions.</li>
- *   <li>Mapping raw Web3j types to clean DTO objects.</li>
- * </ul>
- *
- * <p>Methods return Project Reactor {@link Mono} types so they integrate naturally
- * with the WebFlux stack and allow non-blocking composition.
- */
 public interface EthereumService {
 
     /**

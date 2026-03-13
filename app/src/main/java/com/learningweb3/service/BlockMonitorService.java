@@ -2,11 +2,6 @@ package com.learningweb3.service;
 
 /**
  * Background service that subscribes to on-chain events and logs them.
- *
- * <p>Implementations start their subscriptions on application startup and
- * clean up when the Spring context shuts down.  This is the "reactive monitoring"
- * part of the project — it shows how Web3j's RxJava Flowables can be bridged
- * into Project Reactor for a fully reactive, non-blocking pipeline.
  */
 public interface BlockMonitorService {
 

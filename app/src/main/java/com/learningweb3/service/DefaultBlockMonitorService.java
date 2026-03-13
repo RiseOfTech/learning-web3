@@ -16,35 +16,14 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
 
-/**
- * Subscribes to Ethereum on-chain events using Web3j's RxJava Flowables
- * and logs them via SLF4J.
- *
- * <h2>RxJava → Project Reactor bridge</h2>
- * <p>Web3j uses RxJava 2 for its reactive streams.  Rather than converting to
- * Reactor (which adds complexity), we subscribe directly on RxJava's
- * {@link io.reactivex.Scheduler} and use {@link CompositeDisposable} to manage
- * lifecycle.  In a more complex application you might bridge with
- * {@code reactor.adapter.rxjava.RxJava2Adapter} to compose with Reactor operators.
- *
- * <h2>Back-pressure note</h2>
- * <p>Web3j's HTTP-based Flowables use {@link io.reactivex.BackpressureStrategy#BUFFER}.
- * During high-throughput periods the buffer could grow unbounded.  A production
- * system would apply {@code onBackpressureDrop()} or switch to a WebSocket endpoint
- * which offers natural push-based flow control.
- */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class DefaultBlockMonitorService implements BlockMonitorService {
 
-    private final EthereumClient      ethereumClient;
-    private final EthereumProperties  props;
+    private final EthereumClient ethereumClient;
+    private final EthereumProperties props;
 
-    /**
-     * Holds all active RxJava subscriptions.  Disposing this single object
-     * cancels all of them at once — a clean, leak-free shutdown pattern.
-     */
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
@@ -133,8 +112,8 @@ public class DefaultBlockMonitorService implements BlockMonitorService {
             }
 
             // topic[1] and topic[2] are 32-byte ABI words with the address in the last 20 bytes.
-            String from   = decodeAddressFromTopic(topics.get(1));
-            String to     = decodeAddressFromTopic(topics.get(2));
+            String from = decodeAddressFromTopic(topics.get(1));
+            String to = decodeAddressFromTopic(topics.get(2));
 
             // data contains the transfer amount as a 32-byte big-endian uint256.
             BigInteger rawAmount = decodeUint256(eventLog.getData());

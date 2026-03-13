@@ -3,11 +3,6 @@ package com.learningweb3.constants;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-/**
- * Application-wide constants for Ethereum calculations.
- *
- * <p>Having a single constants class avoids magic numbers scattered across the code.
- */
 public final class EthereumConstants {
 
     /**
