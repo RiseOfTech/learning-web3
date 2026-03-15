@@ -1,2 +1,2 @@
 # learning-web3
-Project is show how we can integration on a blockchain
+The project shows how we can implement integration on the blockchain.
